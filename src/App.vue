@@ -1,4 +1,20 @@
 <template>
+  <header>
+    <img class="logo" src="./images/logo.svg" alt="logo" />
+    <nav class="nav__links">
+      <router-link to="/home">
+        <li>
+          <a src="">Главная</a>
+        </li>
+      </router-link>
+      <router-link to="/about">
+        <li>
+          <a src="">О нас</a>
+        </li>
+      </router-link>
+    </nav>
+    <a class="ticker"><button>Тикер</button></a>
+  </header>
   <div class="container mx-auto flex flex-col items-center bg-gray-100 p-4">
     <div class="container">
       <div class="w-full my-4"></div>
@@ -15,7 +31,18 @@
                 type="text"
                 name="wallet"
                 id="wallet"
-                class="block w-full pr-10 border-gray-300 text-gray-900 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm rounded-md"
+                class="
+                  block
+                  w-full
+                  pr-10
+                  border-gray-300
+                  text-gray-900
+                  focus:outline-none
+                  focus:ring-gray-500
+                  focus:border-gray-500
+                  sm:text-sm
+                  rounded-md
+                "
                 placeholder="Например DOGE"
               />
             </div>
@@ -24,7 +51,26 @@
         <button
           @click="add"
           type="button"
-          class="my-4 inline-flex items-center py-2 px-4 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-full text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          class="
+            btn
+            my-4
+            inline-flex
+            items-center
+            py-2
+            px-4
+            border border-transparent
+            shadow-sm
+            text-sm
+            leading-4
+            font-medium
+            rounded-full
+            text-white
+            hover:bg-green-700
+            transition-colors
+            duration-300
+            focus:outline-none
+            focus:ring-2 focus:ring-offset-2 focus:ring-green-500
+          "
         >
           <!-- Heroicon name: solid/mail -->
           <svg
@@ -51,9 +97,17 @@
             :key="t.name"
             @click="select(t)"
             :class="{
-              'border-4': sel === t
+              'border-4': sel === t,
             }"
-            class="bg-white overflow-hidden shadow rounded-lg border-purple-800 border-solid cursor-pointer"
+            class="
+              column
+              bg-white
+              overflow-hidden
+              shadow
+              rounded-lg
+              border-purple-800 border-solid
+              cursor-pointer
+            "
           >
             <div class="px-4 py-5 sm:p-6 text-center">
               <dt class="text-sm font-medium text-gray-500 truncate">
@@ -66,7 +120,23 @@
             <div class="w-full border-t border-gray-200"></div>
             <button
               @click.stop="handleDelete(t)"
-              class="flex items-center justify-center font-medium w-full bg-gray-100 px-4 py-4 sm:px-6 text-md text-gray-500 hover:text-gray-600 hover:bg-gray-200 hover:opacity-20 transition-all focus:outline-none"
+              class="
+                flex
+                items-center
+                justify-center
+                font-medium
+                w-full
+                bg-gray-100
+                px-4
+                py-4
+                sm:px-6
+                text-md text-gray-500
+                hover:text-gray-600
+                hover:bg-gray-200
+                hover:opacity-20
+                transition-all
+                focus:outline-none
+              "
             >
               <svg
                 class="h-5 w-5"
@@ -95,7 +165,7 @@
             v-for="(bar, idx) in normalizeGraph()"
             :key="idx"
             :style="{ height: `${bar}%` }"
-            class="bg-purple-800 border w-10"
+            class="green border w-10"
           ></div>
         </div>
         <button
@@ -113,7 +183,7 @@
             x="0"
             y="0"
             viewBox="0 0 511.76 511.76"
-            style="enable-background:new 0 0 512 512"
+            style="enable-background: new 0 0 512 512"
             xml:space="preserve"
           >
             <g>
@@ -139,7 +209,7 @@ export default {
       ticker: "",
       tickers: [],
       sel: null,
-      graph: []
+      graph: [],
     };
   },
 
@@ -147,7 +217,7 @@ export default {
     add() {
       const currentTicker = {
         name: this.ticker,
-        price: "-"
+        price: "-",
       };
 
       this.tickers.push(currentTicker);
@@ -158,7 +228,7 @@ export default {
         const data = await f.json();
 
         // currentTicker.price =  data.USD > 1 ? data.USD.toFixed(2) : data.USD.toPrecision(2);
-        this.tickers.find(t => t.name === currentTicker.name).price =
+        this.tickers.find((t) => t.name === currentTicker.name).price =
           data.USD > 1 ? data.USD.toFixed(2) : data.USD.toPrecision(2);
 
         if (this.sel?.name === currentTicker.name) {
@@ -174,18 +244,19 @@ export default {
     },
 
     handleDelete(tickerToRemove) {
-      this.tickers = this.tickers.filter(t => t !== tickerToRemove);
+      this.tickers = this.tickers.filter((t) => t !== tickerToRemove);
     },
 
     normalizeGraph() {
       const maxValue = Math.max(...this.graph);
       const minValue = Math.min(...this.graph);
       return this.graph.map(
-        price => 5 + ((price - minValue) * 95) / (maxValue - minValue)
+        (price) => 5 + ((price - minValue) * 95) / (maxValue - minValue)
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
+<style src="./styles.css"></style>
 <style src="./app.css"></style>
